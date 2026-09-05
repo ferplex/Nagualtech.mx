@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TALLER·OS — IA para tu negocio, sin internet</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0e0b1a;
+  --bg2:#15112a;
+  --txt:#f0eaff;
+  --mut:#8b7db5;
+  --acc:#c084fc;
+  --acc2:#f472b6;
+  --gold:#fbbf24;
+  --ok:#34d399;
+  --bord:#c084fc22;
+  --glow:#c084fc33;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  line-height:1.6;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 40px;
+  background:#0e0b1aee;
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--bord);
+}
+.logo{
+  font-family:'Space Mono',monospace;
+  font-weight:700;font-size:16px;
+  color:var(--txt);letter-spacing:-.5px;
+}
+.logo span{color:var(--acc)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--txt)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#0e0b1a;font-weight:800;font-size:13px;
+  padding:9px 20px;border-radius:10px;
+  text-decoration:none;transition:.2s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px var(--glow)}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:700px;height:700px;
+  background:radial-gradient(circle,#c084fc18 0%,transparent 70%);
+  top:-100px;left:50%;transform:translateX(-50%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,#f472b610 0%,transparent 70%);
+  bottom:0;right:-100px;
+  pointer-events:none;
+}
+
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#c084fc14;border:1px solid #c084fc44;
+  color:var(--acc);font-size:12px;font-weight:700;
+  padding:6px 16px;border-radius:99px;
+  margin-bottom:28px;letter-spacing:.5px;
+}
+.badge::before{content:'●';font-size:8px;color:var(--ok)}
+
+.hero h1{
+  font-size:clamp(42px,8vw,80px);
+  font-weight:800;line-height:1.05;
+  max-width:820px;
+  margin-bottom:24px;
+}
+.hero h1 .brand{
+  font-family:'Space Mono',monospace;
+  color:var(--acc);
+  display:block;
+}
+.hero h1 .sub{
+  color:var(--txt);
+  font-size:clamp(28px,5vw,52px);
+  font-weight:500;
+}
+
+.hero-desc{
+  font-size:clamp(16px,2vw,20px);
+  color:var(--mut);
+  max-width:560px;
+  margin:0 auto 40px;
+}
+
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-primary{
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#0e0b1a;font-weight:800;font-size:15px;
+  padding:14px 32px;border-radius:12px;
+  text-decoration:none;transition:.2s;
+  box-shadow:0 8px 32px #c084fc44;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px #c084fc55}
+.btn-ghost{
+  background:#ffffff0a;border:1px solid var(--bord);
+  color:var(--txt);font-weight:600;font-size:15px;
+  padding:14px 32px;border-radius:12px;
+  text-decoration:none;transition:.2s;
+}
+.btn-ghost:hover{background:#ffffff14;border-color:#c084fc55}
+
+.hero-note{
+  margin-top:20px;font-size:12px;color:var(--mut);
+}
+.hero-note strong{color:var(--ok)}
+
+/* PROOF STRIP */
+.proof{
+  display:flex;gap:0;justify-content:center;
+  border-top:1px solid var(--bord);
+  border-bottom:1px solid var(--bord);
+  background:#ffffff04;
+}
+.proof-item{
+  flex:1;max-width:240px;
+  padding:28px 24px;
+  text-align:center;
+  border-right:1px solid var(--bord);
+}
+.proof-item:last-child{border-right:none}
+.proof-num{
+  font-family:'Space Mono',monospace;
+  font-size:32px;font-weight:700;
+  color:var(--acc);margin-bottom:4px;
+}
+.proof-label{font-size:13px;color:var(--mut);font-weight:500}
+
+/* SECCIONES */
+section{padding:80px 24px}
+.container{max-width:960px;margin:0 auto}
+
+.section-tag{
+  font-family:'Space Mono',monospace;
+  font-size:11px;font-weight:700;
+  color:var(--acc);letter-spacing:2px;
+  margin-bottom:12px;text-transform:uppercase;
+}
+.section-title{
+  font-size:clamp(28px,4vw,42px);
+  font-weight:800;line-height:1.15;
+  margin-bottom:16px;max-width:640px;
+}
+.section-desc{
+  font-size:16px;color:var(--mut);
+  max-width:520px;line-height:1.7;
+}
+
+/* PROBLEMA */
+.problema-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:14px;margin-top:40px;
+}
+.pain{
+  background:#1a0a0a;
+  border:1px solid #ff4a4a22;
+  border-radius:16px;padding:20px 22px;
+}
+.pain-icon{font-size:24px;margin-bottom:10px}
+.pain h4{font-size:14px;font-weight:700;color:#ff8a8a;margin-bottom:6px}
+.pain p{font-size:13px;color:#b58888;line-height:1.6}
+
+/* SOLUCIÓN */
+.sol-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;align-items:center;
+  margin-top:40px;
+}
+@media(max-width:720px){.sol-layout{grid-template-columns:1fr}}
+
+.feature-list{display:flex;flex-direction:column;gap:20px}
+.feat{display:flex;gap:14px;align-items:flex-start}
+.feat-icon{
+  width:40px;height:40px;min-width:40px;
+  background:var(--glow);border:1px solid var(--bord);
+  border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:18px;
+}
+.feat-body h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.feat-body p{font-size:13px;color:var(--mut);line-height:1.6}
+
+/* MOCK UI */
+.mock{
+  background:var(--bg2);
+  border:1px solid var(--bord);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 24px 64px #00000066,0 0 0 1px #c084fc11;
+}
+.mock-bar{
+  background:#ffffff08;
+  border-bottom:1px solid var(--bord);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:8px;
+}
+.mock-dot{width:10px;height:10px;border-radius:99px}
+.d1{background:#ff6b6b}.d2{background:#ffd166}.d3{background:#7ce7a2}
+.mock-title{
+  font-family:'Space Mono',monospace;
+  font-size:11px;color:var(--mut);margin-left:8px;
+}
+.mock-body{padding:20px}
+.mock-stat{
+  background:#ffffff06;border:1px solid var(--bord);
+  border-radius:12px;padding:12px 16px;margin-bottom:10px;
+}
+.mock-stat-label{font-size:10px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.mock-stat-val{
+  font-family:'Space Mono',monospace;
+  font-size:22px;font-weight:700;color:var(--acc);margin-top:4px;
+}
+.mock-rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.mock-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#ffffff06;border-radius:10px;padding:9px 12px;
+  font-size:12px;
+}
+.mock-row-name{color:var(--txt);font-weight:600}
+.mock-row-val{color:var(--gold);font-family:'Space Mono',monospace;font-size:11px}
+.mock-chat{
+  background:#ffffff04;border:1px solid var(--bord);
+  border-radius:12px;padding:12px;margin-top:10px;
+}
+.mock-msg-u{
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#0e0b1a;font-size:11px;font-weight:600;
+  padding:7px 11px;border-radius:10px 10px 2px 10px;
+  max-width:80%;margin-left:auto;margin-bottom:8px;
+}
+.mock-msg-a{
+  background:#ffffff10;font-size:11px;color:var(--txt);
+  padding:7px 11px;border-radius:10px 10px 10px 2px;
+  max-width:85%;line-height:1.5;
+}
+
+/* PARA QUIEN */
+.quien-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;margin-top:40px;
+}
+.quien-card{
+  background:var(--bg2);
+  border:1px solid var(--bord);
+  border-radius:16px;padding:22px 20px;
+  transition:.2s;
+}
+.quien-card:hover{border-color:#c084fc55;background:#1a1530}
+.quien-icon{font-size:32px;margin-bottom:12px}
+.quien-card h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.quien-card p{font-size:12.5px;color:var(--mut);line-height:1.6}
+
+/* PRECIO */
+.precio-wrap{
+  display:flex;justify-content:center;
+  margin-top:48px;
+}
+.precio-card{
+  background:var(--bg2);
+  border:1px solid var(--bord);
+  border-radius:24px;
+  padding:40px;
+  max-width:480px;width:100%;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.precio-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,#c084fc0d,transparent 70%);
+  pointer-events:none;
+}
+.precio-badge{
+  background:#c084fc22;border:1px solid #c084fc44;
+  color:var(--acc);font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:99px;
+  display:inline-block;margin-bottom:20px;
+}
+.precio-num{
+  font-family:'Space Mono',monospace;
+  font-size:56px;font-weight:700;color:var(--txt);
+  line-height:1;margin-bottom:4px;
+}
+.precio-num sup{font-size:24px;color:var(--mut);vertical-align:top;margin-top:12px}
+.precio-sub{font-size:13px;color:var(--mut);margin-bottom:28px}
+.precio-items{
+  display:flex;flex-direction:column;gap:12px;
+  text-align:left;margin-bottom:32px;
+}
+.precio-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:14px;color:var(--txt);
+}
+.precio-item::before{content:'✓';color:var(--ok);font-weight:700;min-width:16px}
+.precio-cta{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  color:#0e0b1a;font-weight:800;font-size:15px;
+  padding:14px;border-radius:14px;
+  text-decoration:none;transition:.2s;
+  box-shadow:0 8px 32px #c084fc44;
+}
+.precio-cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px #c084fc55}
+.precio-note{font-size:11.5px;color:var(--mut);margin-top:14px}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:0;margin-top:40px;border:1px solid var(--bord);border-radius:16px;overflow:hidden}
+.faq-item{border-bottom:1px solid var(--bord)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{
+  width:100%;background:none;border:none;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 22px;cursor:pointer;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:14px;font-weight:600;color:var(--txt);
+  text-align:left;transition:.2s;
+}
+.faq-q:hover{background:#ffffff06}
+.faq-q .arr{color:var(--mut);transition:.3s;font-size:16px}
+.faq-q.open .arr{transform:rotate(90deg);color:var(--acc)}
+.faq-a{
+  display:none;padding:0 22px 18px;
+  font-size:13.5px;color:var(--mut);line-height:1.7;
+}
+.faq-a.on{display:block}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--bord);
+  padding:40px 24px;
+  text-align:center;
+}
+.footer-brand{
+  font-family:'Space Mono',monospace;
+  font-size:14px;font-weight:700;
+  color:var(--mut);margin-bottom:8px;
+}
+.footer-brand span{color:var(--acc)}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.footer-links a{color:var(--mut);font-size:13px;text-decoration:none;transition:.2s}
+.footer-links a:hover{color:var(--txt)}
+.footer-note{font-size:12px;color:#4a3f6a}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .proof{flex-wrap:wrap}
+  .proof-item{border-right:none;border-bottom:1px solid var(--bord);flex:1 1 140px}
+  .precio-card{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">TALLER<span>·</span>OS</div>
+  <ul class="nav-links">
+    <li><a href="#que-hace">Qué hace</a></li>
+    <li><a href="#para-quien">Para quién</a></li>
+    <li><a href="#precio">Precio</a></li>
+    <li><a href="#faq">Preguntas</a></li>
+  </ul>
+  <a href="https://nautlab.itch.io" target="_blank" class="nav-cta">Descargar</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">IA local · Sin internet · Sin mensualidad</div>
+  <h1>
+    <span class="brand">TALLER·OS</span>
+    <span class="sub">Tu negocio con inteligencia artificial.<br>Sin depender de nadie.</span>
+  </h1>
+  <p class="hero-desc">
+    Panel de operaciones con IA para talleres, tiendas y negocios pequeños.
+    Se instala solo, funciona sin internet y no te cobra cada mes.
+  </p>
+  <div class="hero-actions">
+    <a href="https://nautlab.itch.io" target="_blank" class="btn-primary">Descargar gratis para probar</a>
+    <a href="#que-hace" class="btn-ghost">Ver qué incluye</a>
+  </div>
+  <p class="hero-note"><strong>Un solo pago.</strong> Tuyo para siempre. Sin suscripción.</p>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof">
+  <div class="proof-item">
+    <div class="proof-num">100%</div>
+    <div class="proof-label">Local — sin nube</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num">0</div>
+    <div class="proof-label">Dependencias externas</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num">IA</div>
+    <div class="proof-label">incluida desde el inicio</div>
+  </div>
+  <div class="proof-item">
+    <div class="proof-num">1×</div>
+    <div class="proof-label">Pago único, para siempre</div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section style="background:#0b0915;padding:80px 24px" id="problema">
+  <div class="container">
+    <p class="section-tag">El problema</p>
+    <h2 class="section-title">Las herramientas de IA cuestan caro y no sirven si no tienes internet</h2>
+    <p class="section-desc">
+      ChatGPT, Google Workspace, los ERPs en la nube — todos te cobran mensual,
+      te piden que confíes tus datos a servidores que no controlas,
+      y si se cae el internet, se cae tu trabajo.
+    </p>
+    <div class="problema-grid">
+      <div class="pain">
+        <div class="pain-icon">💸</div>
+        <h4>Suscripciones que se acumulan</h4>
+        <p>$200, $500, $800 pesos al mes por herramientas que usas a medias. El costo nunca para.</p>
+      </div>
+      <div class="pain">
+        <div class="pain-icon">📡</div>
+        <h4>Todo depende de internet</h4>
+        <p>Se cae la señal, se cae el sistema. No puedes facturar, no puedes consultar, no puedes trabajar.</p>
+      </div>
+      <div class="pain">
+        <div class="pain-icon">🔒</div>
+        <h4>Tus datos en servidores ajenos</h4>
+        <p>Inventario, clientes, ventas — todo guardado en servidores que tú no controlas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUCIÓN -->
+<section id="que-hace">
+  <div class="container">
+    <p class="section-tag">La solución</p>
+    <h2 class="section-title">Todo lo que necesita tu negocio, en tu computadora</h2>
+    <div class="sol-layout">
+      <div class="feature-list">
+        <div class="feat">
+          <div class="feat-icon">🤖</div>
+          <div class="feat-body">
+            <h4>Asistente IA por voz y texto</h4>
+            <p>Pregúntale al sistema sobre tu inventario, tus ventas o pide que genere textos de marketing. Responde al instante, sin internet.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📦</div>
+          <div class="feat-body">
+            <h4>Inventario con alertas</h4>
+            <p>Controla stock, recibe avisos cuando algo está por agotarse. Todo desde una pantalla limpia.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📊</div>
+          <div class="feat-body">
+            <h4>Ventas y clientes</h4>
+            <p>Registro de ventas, historial de clientes, reportes en segundos. Sin hojas de cálculo perdidas.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📣</div>
+          <div class="feat-body">
+            <h4>Generador de marketing</h4>
+            <p>La IA escribe promociones, descripciones y textos para tus redes. Solo dile qué quieres vender.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🎨</div>
+          <div class="feat-body">
+            <h4>3 temas visuales incluidos</h4>
+            <p>Elige el look que más te guste. El sistema se adapta a tu estilo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOCK UI -->
+      <div class="mock">
+        <div class="mock-bar">
+          <div class="mock-dot d1"></div>
+          <div class="mock-dot d2"></div>
+          <div class="mock-dot d3"></div>
+          <span class="mock-title">TALLER·OS · Nautilus Lab ✨</span>
+        </div>
+        <div class="mock-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+            <div class="mock-stat">
+              <div class="mock-stat-label">Ventas hoy</div>
+              <div class="mock-stat-val">$3,480</div>
+            </div>
+            <div class="mock-stat">
+              <div class="mock-stat-label">Clientes</div>
+              <div class="mock-stat-val">48</div>
+            </div>
+          </div>
+          <div class="mock-rows">
+            <div class="mock-row">
+              <span class="mock-row-name">Aceite 20W-50 (3L)</span>
+              <span class="mock-row-val">Stock: 12</span>
+            </div>
+            <div class="mock-row">
+              <span class="mock-row-name">Filtro de aire Nissan</span>
+              <span class="mock-row-val" style="color:#ff8a8a">Stock: 2 ⚠</span>
+            </div>
+            <div class="mock-row">
+              <span class="mock-row-name">Bujías NGK x4</span>
+              <span class="mock-row-val">Stock: 8</span>
+            </div>
+          </div>
+          <div class="mock-chat">
+            <div class="mock-msg-u">¿Qué productos tienen stock bajo?</div>
+            <div class="mock-msg-a">⚠️ Stock bajo:<br>• Filtro de aire Nissan: 2 unidades<br>Te recomiendo pedir mínimo 10.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section style="background:#0b0915;padding:80px 24px" id="para-quien">
+  <div class="container">
+    <p class="section-tag">Para quién es</p>
+    <h2 class="section-title">Hecho para negocios que trabajan de verdad</h2>
+    <p class="section-desc">
+      No necesitas saber de tecnología. Si sabes usar WhatsApp, puedes usar TALLER·OS.
+    </p>
+    <div class="quien-grid">
+      <div class="quien-card">
+        <div class="quien-icon">🔧</div>
+        <h4>Talleres mecánicos</h4>
+        <p>Controla refacciones, registra servicios, genera cotizaciones con IA.</p>
+      </div>
+      <div class="quien-card">
+        <div class="quien-icon">🛒</div>
+        <h4>Tiendas y misceláneas</h4>
+        <p>Inventario siempre actualizado, alertas de stock, ventas del día en segundos.</p>
+      </div>
+      <div class="quien-card">
+        <div class="quien-icon">🪡</div>
+        <h4>Talleres de costura</h4>
+        <p>Pedidos, materiales, clientes y entregas en un solo lugar.</p>
+      </div>
+      <div class="quien-card">
+        <div class="quien-icon">🖨️</div>
+        <h4>Imprentas y diseño</h4>
+        <p>La IA te ayuda a redactar propuestas y describir tus servicios.</p>
+      </div>
+      <div class="quien-card">
+        <div class="quien-icon">🍕</div>
+        <h4>Restaurantes y cafés</h4>
+        <p>Ingredientes, proveedores, costos — todo bajo control sin internet.</p>
+      </div>
+      <div class="quien-card">
+        <div class="quien-icon">🏪</div>
+        <h4>Cualquier negocio local</h4>
+        <p>Si tienes inventario, clientes y quieres usar IA — esto es para ti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section id="precio">
+  <div class="container" style="text-align:center">
+    <p class="section-tag" style="justify-content:center;display:flex">Precio</p>
+    <h2 class="section-title" style="margin:0 auto 16px;text-align:center">Sin trampa. Sin letra chica.</h2>
+    <p class="section-desc" style="margin:0 auto">Un solo pago y es tuyo para siempre.</p>
+    <div class="precio-wrap">
+      <div class="precio-card">
+        <div class="precio-badge">Licencia permanente</div>
+        <div class="precio-num"><sup>$</sup>149</div>
+        <div class="precio-sub">pago único · tuyo para siempre</div>
+        <div class="precio-items">
+          <div class="precio-item">Panel completo con IA, inventario y ventas</div>
+          <div class="precio-item">Asistente por voz y texto (sin internet)</div>
+          <div class="precio-item">Generador de textos de marketing</div>
+          <div class="precio-item">Actualizaciones incluidas</div>
+          <div class="precio-item">Sin suscripción, sin cuenta, sin nube</div>
+          <div class="precio-item">Se instala solo en Windows — en minutos</div>
+        </div>
+        <a href="https://nautlab.itch.io" target="_blank" class="precio-cta">Descargar en itch.io</a>
+        <p class="precio-note">También disponible en Gumroad y Ko-fi · <strong style="color:var(--ok)">Prueba gratuita disponible</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:#0b0915;padding:80px 24px" id="faq">
+  <div class="container">
+    <p class="section-tag">Preguntas frecuentes</p>
+    <h2 class="section-title">Lo que todos preguntan</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          ¿Necesito internet para que funcione? <span class="arr">›</span>
+        </button>
+        <div class="faq-a">No. TALLER·OS funciona 100% local en tu computadora. La IA, el inventario, todo — sin depender de conexión a internet. Ideal si tu señal es irregular.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          ¿Tengo que instalar algo extra? <span class="arr">›</span>
+        </button>
+        <div class="faq-a">No. El instalador descarga y configura todo lo necesario automáticamente, incluyendo el motor de IA. Solo ejecutas el archivo y listo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          ¿Mis datos están seguros? <span class="arr">›</span>
+        </button>
+        <div class="faq-a">Tus datos nunca salen de tu computadora. No hay servidores, no hay nube, no hay empresa que tenga acceso a tu inventario o clientes. Todo queda en tu máquina.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          ¿Funciona en cualquier Windows? <span class="arr">›</span>
+        </button>
+        <div class="faq-a">Sí, compatible con Windows 10 y Windows 11. Se recomienda al menos 8 GB de RAM para que la IA responda con fluidez.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          ¿Qué pasa si tengo dudas después de comprar? <span class="arr">›</span>
+        </button>
+        <div class="faq-a">Puedes contactar a Nautilus Lab directamente por itch.io. El soporte es directo con quien lo hizo, no con un chatbot.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="padding:80px 24px;text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#c084fc0d,transparent 70%);pointer-events:none"></div>
+  <div class="container" style="position:relative">
+    <h2 style="font-size:clamp(28px,5vw,48px);font-weight:800;margin-bottom:16px;line-height:1.1">
+      Tu negocio con IA.<br>
+      <span style="color:var(--acc)">Sin rentar nada.</span>
+    </h2>
+    <p style="font-size:16px;color:var(--mut);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto">
+      Descárgalo, pruébalo, y si te convence — es tuyo para siempre con un solo pago.
+    </p>
+    <a href="https://nautlab.itch.io" target="_blank" class="btn-primary" style="font-size:16px;padding:16px 40px">
+      Descargar en itch.io
+    </a>
+    <p style="margin-top:16px;font-size:12px;color:var(--mut)">
+      También en <a href="https://nautilulab.gumroad.com" target="_blank" style="color:var(--acc);text-decoration:none">Gumroad</a> y Ko-fi
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">NAUTILUS<span> LAB</span> · Nagualtech</div>
+  <div class="footer-links">
+    <a href="https://nautlab.itch.io" target="_blank">itch.io</a>
+    <a href="https://nautilulab.gumroad.com" target="_blank">Gumroad</a>
+    <a href="https://github.com/ferplex" target="_blank">GitHub</a>
+  </div>
+  <p class="footer-note">Hecho en Guadalajara, México · Nautilus Lab © 2025</p>
+</footer>
+
+<script>
+function toggle(btn){
+  const a=btn.nextElementSibling;
+  const open=btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b=>{
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('on');
+  });
+  if(!open){btn.classList.add('open');a.classList.add('on');}
+}
+</script>
+</body>
+</html>
